@@ -4,6 +4,7 @@ import csv
 
 path = "C:\\Users\\wawil\\python-challenge\\PyBank\\"
 budget_csv = os.path.join(path, 'Resources','budget_data.csv')
+writepath = path + "analysis\\results.txt"
 
 with open(budget_csv) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
@@ -36,7 +37,14 @@ with open(budget_csv) as csvfile:
     print("Financial Analysis")
     print("--------------------------")
     print(f"Total Months: {len(months)}")
-    print(f"Total: ${sum(prof)}")
+    print(f"Total: ${net_prof}")
     print(f"Average Change: ${round(avg_prof, 2)}")
-    print(f"Greatest Increase in Profits: {months[max_ind]} (${max_prof})")
-    print(f"Greatest Decrease in Profits: {months[min_ind]} (${min_prof})")
+    print(f"Greatest Increase in Profits: {months[max_ind]} (${int(max_prof)})")
+    print(f"Greatest Decrease in Profits: {months[min_ind]} (${int(min_prof)})")
+
+with open(writepath, "w") as file:
+    lines = ["Financial Analysis", "--------------------------", f"Total Months: {len(months)}", f"Total: ${net_prof}",
+    f"Average Change: ${round(avg_prof, 2)}", f"Greatest Increase in Profits: {months[max_ind]} (${int(max_prof)})",
+    f"Greatest Decrease in Profits: {months[min_ind]} (${int(min_prof)})"]
+    file.write('\n'.join(lines))
+
