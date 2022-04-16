@@ -2,6 +2,7 @@ import os
 import csv
 
 path = "C:\\Users\\wawil\\python-challenge\\PyPoll\\"
+writepath = path + "analysis\\results.txt"
 poll_csv = os.path.join(path, 'Resources','election_data.csv')
 
 def line():
@@ -34,3 +35,10 @@ with open(poll_csv) as csvfile:
     line()
     print(f"Winner: {winner}")
     line()
+
+with open(writepath, "w") as file:
+    file.write('\n'.join(["Election Results", "--------------------------", 
+    f"Total Votes: {total}"]))
+    for keys in votes:
+        file.writelines(['\n', '\n'.join([f"{keys}: {round( 100*(votes[keys]/total),3)}% ({votes[keys]})"])])
+    file.writelines(['\n','\n'.join([f"Winner: {winner}", "--------------------------"])])
